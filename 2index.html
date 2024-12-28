@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funny Animation with JS</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #ball {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="ball"></div>
+
+    <script>
+        const ball = document.getElementById('ball');
+        const ballRadius = 25;  // Half of the ball's width/height
+        let posX = Math.random() * (window.innerWidth - ballRadius * 2);
+        let posY = Math.random() * (window.innerHeight - ballRadius * 2);
+        let speedX = 3;
+        let speedY = 3;
+        let ballColor = 'red';
+
+        function changeColor() {
+            const colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange'];
+            ballColor = colors[Math.floor(Math.random() * colors.length)];
+            ball.style.backgroundColor = ballColor;
+        }
+
+        function animate() {
+            // Update the position of the ball
+            posX += speedX;
+            posY += speedY;
+
+            // Bounce off the walls
+            if (posX + ballRadius * 2 > window.innerWidth || posX < 0) {
+                speedX = -speedX;  // Reverse horizontal direction
+                changeColor();  // Change color when bouncing
+            }
+            if (posY + ballRadius * 2 > window.innerHeight || posY < 0) {
+                speedY = -speedY;  // Reverse vertical direction
+                changeColor();  // Change color when bouncing
+            }
+
+            // Set the new position of the ball
+            ball.style.left = posX + 'px';
+            ball.style.top = posY + 'px';
+
+            // Request the next animation frame
+            requestAnimationFrame(animate);
+        }
+
+        // Start the animation
+        animate();
+    </script>
+</body>
+</html>
